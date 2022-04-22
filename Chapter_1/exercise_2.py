@@ -1,17 +1,19 @@
 import matplotlib.pyplot as plt
 import numpy as np
+
 from ResistorExperiment import ResistorExperiment
+
 
 def main():
     print_header()
     run_exercise_2()
     return 0
 
+
 def print_header():
     print("=====================================================")
     print("                     Exercise 2:")
-    print("                     TODO: Title")
-    print("                     Jack Center")
+    print(" Study of the asymptotic distribution of an estimate ")
     print("=====================================================")
     print()
 

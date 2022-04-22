@@ -14,8 +14,7 @@ def main():
 def print_header():
     print("=====================================================")
     print("                     Exercise 1:")
-    print("                     TODO: Title")
-    print("                     Jack Center")
+    print(" Least squares estimation of the value of a resistor ")
     print("=====================================================")
     print()
 
