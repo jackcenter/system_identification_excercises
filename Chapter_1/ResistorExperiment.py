@@ -1,6 +1,7 @@
 import numpy as np
 from ResistorData import ResistorData
 
+
 class ResistorExperiment:
     def __init__(self, simulations, iterations, current_max, resistance_actual):
         self.sims = simulations
@@ -9,7 +10,9 @@ class ResistorExperiment:
         self.r_act = resistance_actual       
 
         self.results = []
-        self.std_dev = 0.0
+        self.mean = None
+        self.std_dev = None
+
 
     def get_regression_values(self):
         # TODO: check for empty results
@@ -20,8 +23,22 @@ class ResistorExperiment:
         return self.r_act
 
 
+    def get_mean(self):
+        if not self.mean:
+            self.calculate_mean()
+
+        return self.mean
+
+
     def get_standard_deviation(self):
+        if not self.std_dev:
+            self.calculate_standard_deviation()
+
         return self.std_dev
+
+    
+    def calculate_mean(self):
+        self.mean = np.mean(self.get_regression_values())
 
 
     def calculate_standard_deviation(self):
@@ -57,10 +74,10 @@ class ResistorExperiment:
         for _ in range(0, self.sims):
             self.results.append(self.run_simulation())
 
+        self.calculate_mean()
         self.calculate_standard_deviation()
-
 
     @staticmethod
     def calculate_least_squares_estimate(i_samples, v_samples):
     
-        return np.sum(i_samples * v_samples) / np.sum(i_samples * i_samples) 
+        return np.dot(i_samples, v_samples) / np.dot(i_samples, i_samples)
