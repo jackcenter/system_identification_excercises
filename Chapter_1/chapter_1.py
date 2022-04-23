@@ -1,10 +1,11 @@
 
-import exercise_1
+import exercise_1, exercise_2
 
 
 def main():
     print_header()
     exercise_1.main()
+    exercise_2.main()
 
 
 def print_header():
