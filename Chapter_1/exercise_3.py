@@ -56,17 +56,23 @@ def run_exercise_3():
     print()
 
     fig, axs = plt.subplots(3, 1, sharex=True, sharey=True)
-    fig.suptitle("Figure 1-4: pdf of the estimates")
+    fig.suptitle("Figure 1-4: Evolution of pdf of R as a function of current noise")
     fig.supxlabel("R")
 
-    axs[0].hist(experiments_00a[-1].get_regression_values(), bins=100, density=True, histtype='step')
-    axs[0].hist(experiments_00b[-1].get_regression_values(), bins=100, density=True, histtype='step')
+    plt.subplots_adjust(hspace=0.4)
+
+    axs[0].hist(experiments_00a[-1].get_regression_values(), bins=100, density=True, histtype='step', label='No Current Noise')
+    axs[0].hist(experiments_00b[-1].get_regression_values(), bins=100, density=True, histtype='step', label='Current Noise')
+    axs[0].set_title("sigma = 0.0")
+    axs[0].legend(loc='upper left')
 
     axs[1].hist(experiments_00a[-1].get_regression_values(), bins=100, density=True, histtype='step')
     axs[1].hist(experiments_05[-1].get_regression_values(), bins=100, density=True, histtype='step')
+    axs[1].set_title("sigma = 0.5")
 
     axs[2].hist(experiments_00a[-1].get_regression_values(), bins=100, density=True, histtype='step')
     axs[2].hist(experiments_10[-1].get_regression_values(), bins=100, density=True, histtype='step')
+    axs[2].set_title("sigma = 1.0")
 
     print("Close plot to continue.")
     print()
@@ -81,15 +87,18 @@ class Experiment_3 ( ResistorExperiment ):
         
         self.i_std = i_std
 
+
     def generate_current_samples(self):
         return np.random.uniform(-self.i_max, self.i_max, self.iters)
-        # noise = np.random.normal(0, self.i_std, self.iters)
+
 
     def generate_noise_samples(self, std_dev):
         return np.random.normal(0, std_dev, self.iters)
     
+
     def generate_voltage_samples(self, i_samples, n_samples):
         return np.array([self.r_act * i + n for i, n in zip(i_samples, n_samples)])
+
 
     def run_simulation(self):
 

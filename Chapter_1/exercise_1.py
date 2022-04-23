@@ -37,7 +37,7 @@ def run_exercise_1a():
         raise ValueError("Number of experiments in Exercise 1.a does not equal 4. Are the correct values for 'iterations' set?\nIterations should equal [10, 100, 1000, 10000]")
 
     fig, axs = plt.subplots(2, 2, sharex=True, sharey=True)
-    fig.suptitle("Figure 1-1")
+    fig.suptitle("Figure 1-1: Estimated resustance values for various sample sizes.")
     fig.supxlabel("Experiment Number")
     fig.supylabel("Resistance Estimate (Ohms)")
 
@@ -102,11 +102,14 @@ class ResistorExperiment_1a ( ResistorExperiment ):
     def __init__(self, simulations, iterations, current_max, resistance_actual):
         super().__init__(simulations, iterations, current_max, resistance_actual)
 
+
     def generate_current_samples(self):
         return np.random.uniform(-self.i_max, self.i_max, self.iters)
 
+
     def generate_noise_samples(self):
         return np.random.normal(0, 1, self.iters)
+
 
     def generate_voltage_samples(self, i_samples, n_samples):
         return np.array([self.r_act * i + n for i, n in zip(i_samples, n_samples)])
@@ -116,11 +119,14 @@ class ResistorExperiment_1b ( ResistorExperiment ):
     def __init__(self, simulations, iterations, current_max, resistance_actual):
         super().__init__(simulations, iterations, current_max, resistance_actual)
 
+
     def generate_current_samples(self):
         return self.i_max * np.ones(self.iters)
 
+
     def generate_noise_samples(self):
         return np.random.normal(0, 1, self.iters)
+
 
     def generate_voltage_samples(self, i_samples, n_samples):
         return np.array([self.r_act * i + n for i, n in zip(i_samples, n_samples)])
