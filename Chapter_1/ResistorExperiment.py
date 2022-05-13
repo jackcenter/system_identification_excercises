@@ -22,6 +22,10 @@ class ResistorExperiment:
         return self.r_act
 
 
+    def get_results(self):
+        return self.results
+
+        
     def get_mean(self):
         if not self.mean:
             self.calculate_mean()
