@@ -1,8 +1,8 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-from ResistorExperiment import ResistorExperiment
-from WeightedResistorData import WeightedResistorData
+from Chapter_1.ResistorExperiment import ResistorExperiment
+from Chapter_1.WeightedResistorData import WeightedResistorData
 
 
 def main():
@@ -20,11 +20,10 @@ def print_header():
     print()
 
 
-def run_exercise_5a():
+def run_exercise_5a(number_of_simulations=100000, show_plot=True):
     print("Running Experiment 5a...")
     np.random.seed(4)
 
-    number_of_simulations = 100000
     iterations = [100]
     current_actual = 0.01           # Amps
     resistance_actual = 1000        # Ohms
@@ -71,20 +70,21 @@ def run_exercise_5a():
         print("Combined (WLS):\t{}\t{}".format(round(np.mean(weighted_least_squares_values_combined), 2), round(np.std(weighted_least_squares_values_combined), 4)))
         print()
 
-        fig, axs = plt.subplots(1, 1, sharex=True, sharey=True)
-        fig.suptitle("Figure 1-6: Estimated Resistance Values for\nGood and Bad Sensors")
-        fig.supxlabel("R")
+        if show_plot:
+            fig, axs = plt.subplots(1, 1, sharex=True, sharey=True)
+            fig.suptitle("Figure 1-6: Estimated Resistance Values for\nGood and Bad Sensors")
+            fig.supxlabel("R")
 
-        axs.hist(experiments_low_noise[-1].get_regression_values(), bins=100, density=True, histtype='step')
-        axs.hist(experiments_high_noise[-1].get_regression_values(), bins=100, density=True, histtype='step') 
-        axs.hist(weighted_least_squares_values_combined, bins=100, density=True, histtype='step')    
+            axs.hist(experiments_low_noise[-1].get_regression_values(), bins=100, density=True, histtype='step')
+            axs.hist(experiments_high_noise[-1].get_regression_values(), bins=100, density=True, histtype='step') 
+            axs.hist(weighted_least_squares_values_combined, bins=100, density=True, histtype='step')    
 
-        plt.legend(["Low Noise", "High Noise", "Combined"])
-        
-        print("Close plot to continue.")
-        print()
+            plt.legend(["Low Noise", "High Noise", "Combined"])
+            
+            print("Close plot to continue.")
+            print()
 
-        plt.show()
+            plt.show()
 
         return results_combined
 
@@ -102,6 +102,8 @@ def run_exercise_5b(results_combined):
     print("Least Squares Regression (LSR):\t{}".format(lsr_value))
     print("Weighted Least Squares (WLS):  \t{}".format(wls_value))
     print()
+
+    return 0
 
 
 class Experiment ( ResistorExperiment ):

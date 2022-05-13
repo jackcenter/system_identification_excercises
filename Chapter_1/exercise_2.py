@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-from ResistorExperiment import ResistorExperiment
+from Chapter_1.ResistorExperiment import ResistorExperiment
 
 
 def main():
@@ -18,11 +18,10 @@ def print_header():
     print()
 
 
-def run_exercise_2():
+def run_exercise_2(number_of_simulations=100000, show_plot=True):
     print("Running Experiment 2...")
     np.random.seed(2)
 
-    number_of_simulations = 100000
     iterations = [1, 2, 4, 8]
     current_actual = 0.01           # Amps
     resistance_actual = 1000        # Ohms
@@ -37,21 +36,24 @@ def run_exercise_2():
         experiments_uniform.append(Experiment_2b(number_of_simulations, n, current_actual, resistance_actual))
         experiments_uniform[-1].run_experiment()
 
-    fig, axs = plt.subplots(4, 1, sharex=True, sharey=True)
-    fig.suptitle("Figure 1-3: Evolution of the pdf of R as a function of N")
-    fig.supxlabel("R")
+    if show_plot:
+        fig, axs = plt.subplots(4, 1, sharex=True, sharey=True)
+        fig.suptitle("Figure 1-3: Evolution of the pdf of R as a function of N")
+        fig.supxlabel("R")
 
-    for i in range(0, 4):
-        axs[i].hist(experiments_normal[i].get_regression_values(), bins=100, density=True, histtype='step', label='Normal')
-        axs[i].hist(experiments_uniform[i].get_regression_values(), bins=100, density=True, histtype='step', label='Uniform')
-        axs[i].set_ylabel("N = " + str(experiments_normal[i].iters))
+        for i in range(0, 4):
+            axs[i].hist(experiments_normal[i].get_regression_values(), bins=100, density=True, histtype='step', label='Normal')
+            axs[i].hist(experiments_uniform[i].get_regression_values(), bins=100, density=True, histtype='step', label='Uniform')
+            axs[i].set_ylabel("N = " + str(experiments_normal[i].iters))
 
-    axs[0].legend()
+        axs[0].legend()
 
-    print("Close plot to continue.")
-    print()
-    
-    plt.show()
+        print("Close plot to continue.")
+        print()
+        
+        plt.show()
+
+    return 0
 
 
 class Experiment_2a ( ResistorExperiment ):

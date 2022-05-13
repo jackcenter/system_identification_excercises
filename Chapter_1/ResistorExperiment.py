@@ -1,5 +1,5 @@
 import numpy as np
-from ResistorData import ResistorData
+from Chapter_1.ResistorData import ResistorData
 
 
 class ResistorExperiment:
