@@ -1,8 +1,8 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-from ResistorExperiment import ResistorExperiment
-from ResistorData import ResistorData
+from Chapter_1.ResistorExperiment import ResistorExperiment
+from Chapter_1.ResistorData import ResistorData
 
 
 def main():
@@ -19,11 +19,10 @@ def print_header():
     print()
 
 
-def run_exercise_3():
+def run_exercise_3(number_of_simulations=100000, show_plot=True):
     print("Running Experiment 3...")
     np.random.seed(3)
 
-    number_of_simulations = 100000
     iterations = [100]
     current_max = 0.01           # Amps
     resistance_actual = 1000     # Ohms
@@ -55,29 +54,32 @@ def run_exercise_3():
     print("(0, 1):  \t{}\t{}".format(round(experiments_10[-1].get_mean()), round(experiments_10[-1].get_standard_deviation())))
     print()
 
-    fig, axs = plt.subplots(3, 1, sharex=True, sharey=True)
-    fig.suptitle("Figure 1-4: Evolution of pdf of R as a function of current noise")
-    fig.supxlabel("R")
+    if show_plot:
+        fig, axs = plt.subplots(3, 1, sharex=True, sharey=True)
+        fig.suptitle("Figure 1-4: Evolution of pdf of R as a function of current noise")
+        fig.supxlabel("R")
 
-    plt.subplots_adjust(hspace=0.4)
+        plt.subplots_adjust(hspace=0.4)
 
-    axs[0].hist(experiments_00a[-1].get_regression_values(), bins=100, density=True, histtype='step', label='No Current Noise')
-    axs[0].hist(experiments_00b[-1].get_regression_values(), bins=100, density=True, histtype='step', label='Current Noise')
-    axs[0].set_title("sigma = 0.0")
-    axs[0].legend(loc='upper left')
+        axs[0].hist(experiments_00a[-1].get_regression_values(), bins=100, density=True, histtype='step', label='No Current Noise')
+        axs[0].hist(experiments_00b[-1].get_regression_values(), bins=100, density=True, histtype='step', label='Current Noise')
+        axs[0].set_title("sigma = 0.0")
+        axs[0].legend(loc='upper left')
 
-    axs[1].hist(experiments_00a[-1].get_regression_values(), bins=100, density=True, histtype='step')
-    axs[1].hist(experiments_05[-1].get_regression_values(), bins=100, density=True, histtype='step')
-    axs[1].set_title("sigma = 0.5")
+        axs[1].hist(experiments_00a[-1].get_regression_values(), bins=100, density=True, histtype='step')
+        axs[1].hist(experiments_05[-1].get_regression_values(), bins=100, density=True, histtype='step')
+        axs[1].set_title("sigma = 0.5")
 
-    axs[2].hist(experiments_00a[-1].get_regression_values(), bins=100, density=True, histtype='step')
-    axs[2].hist(experiments_10[-1].get_regression_values(), bins=100, density=True, histtype='step')
-    axs[2].set_title("sigma = 1.0")
+        axs[2].hist(experiments_00a[-1].get_regression_values(), bins=100, density=True, histtype='step')
+        axs[2].hist(experiments_10[-1].get_regression_values(), bins=100, density=True, histtype='step')
+        axs[2].set_title("sigma = 1.0")
 
-    print("Close plot to continue.")
-    print()
+        print("Close plot to continue.")
+        print()
+        
+        plt.show()
     
-    plt.show()
+    return 0
 
 
 class Experiment_3 ( ResistorExperiment ):

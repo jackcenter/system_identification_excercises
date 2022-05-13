@@ -1,8 +1,8 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-from ResistorExperiment import ResistorExperiment
-from ResistorData import ResistorData
+from Chapter_1.ResistorExperiment import ResistorExperiment
+from Chapter_1.ResistorData import ResistorData
 
 
 def main():
@@ -20,11 +20,10 @@ def print_header():
     print()
 
 
-def run_exercise_4():
+def run_exercise_4(number_of_simulations=100000, show_plot=True):
     print("Running Experiment 4...")
     np.random.seed(4)
 
-    number_of_simulations = 100000
     iterations = [100]
     current_actual = 0.01           # Amps
     resistance_actual = 1000        # Ohms
@@ -39,19 +38,22 @@ def run_exercise_4():
         experiments_voltage.append(ExperimentVoltage(number_of_simulations, n, current_actual, resistance_actual))
         experiments_voltage[-1].run_experiment()
 
-    fig, axs = plt.subplots(1, 1, sharex=True, sharey=True)
-    fig.suptitle("Figure 1-5: Study of independent variable selection")
-    fig.supxlabel("R")
+    if show_plot:
+        fig, axs = plt.subplots(1, 1, sharex=True, sharey=True)
+        fig.suptitle("Figure 1-5: Study of independent variable selection")
+        fig.supxlabel("R")
 
-    axs.hist(experiments_current[-1].get_regression_values(), bins=100, density=True, histtype='step')
-    axs.hist(experiments_voltage[-1].get_regression_values(), bins=100, density=True, histtype='step')    
+        axs.hist(experiments_current[-1].get_regression_values(), bins=100, density=True, histtype='step')
+        axs.hist(experiments_voltage[-1].get_regression_values(), bins=100, density=True, histtype='step')    
 
-    plt.legend(["current", "voltage"])
+        plt.legend(["current", "voltage"])
+        
+        print("Close plot to continue.")
+        print()
+
+        plt.show()
     
-    print("Close plot to continue.")
-    print()
-
-    plt.show()
+    return 0
 
 class ExperimentCurrent ( ResistorExperiment ):
 
